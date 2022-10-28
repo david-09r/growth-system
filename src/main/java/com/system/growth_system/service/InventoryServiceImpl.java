@@ -3,6 +3,7 @@ package com.system.growth_system.service;
 import com.system.growth_system.persistence.entity.Inventory;
 import com.system.growth_system.persistence.repository.InventoryRepository;
 import com.system.growth_system.service.impl.IInventoryService;
+import com.system.growth_system.util.enums.InventoryResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,7 +30,8 @@ public class InventoryServiceImpl implements IInventoryService {
 
     @Override
     public String save(Inventory inventory) {
-        return null;
+        this.inventoryRepository.save(inventory);
+        return InventoryResponse.SUCCESS_SAVE_INVENTORY.getValue();
     }
 
     @Override

@@ -1,12 +1,11 @@
 package com.system.growth_system.util.enums;
 
-public enum TextResponse {
-    SUCCESS_STATUS("Success"),
-    ERROR_STATUS("Error");
+public enum InventoryResponse {
+    SUCCESS_SAVE_INVENTORY("Inventario Guardado!");
 
     private final String value;
 
-    TextResponse(final String value) {
+    InventoryResponse(final String value) {
         this.value = value;
     }
 

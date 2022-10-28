@@ -5,10 +5,7 @@ import com.system.growth_system.service.InventoryServiceImpl;
 import com.system.growth_system.util.enums.TextResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,7 +25,7 @@ public class InventoryController {
             List<Inventory> inventories = this.inventoryService.getAll();
             return ResponseHandler.generateResponse(TextResponse.SUCCESS_STATUS.getValue(), HttpStatus.OK, inventories);
         }catch (Exception e) {
-            return ResponseHandler.generateResponse(TextResponse.SUCCESS_STATUS.getValue(), HttpStatus.MULTI_STATUS, null);
+            return ResponseHandler.generateResponse(TextResponse.ERROR_STATUS.getValue(), HttpStatus.MULTI_STATUS, e.getMessage());
         }
     }
 
@@ -39,6 +36,16 @@ public class InventoryController {
             return ResponseHandler.generateResponse(TextResponse.SUCCESS_STATUS.getValue(), HttpStatus.OK, inventory);
         }catch (Exception e){
             return ResponseHandler.generateResponse(TextResponse.ERROR_STATUS.getValue(), HttpStatus.MULTI_STATUS, null);
+        }
+    }
+
+    @PostMapping()
+    public ResponseEntity<Object> store(@RequestBody Inventory inventory){
+        try {
+            String response = this.inventoryService.save(inventory);
+            return ResponseHandler.generateResponse(TextResponse.SUCCESS_STATUS.getValue(), HttpStatus.CREATED, response);
+        }catch (Exception e) {
+            return ResponseHandler.generateResponse(TextResponse.ERROR_STATUS.getValue(), HttpStatus.MULTI_STATUS, e.getMessage());
         }
     }
 }

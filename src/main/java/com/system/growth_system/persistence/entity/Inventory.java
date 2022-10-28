@@ -36,8 +36,8 @@ public class Inventory {
     @Column(name = "quantity_output", nullable = false)
     private Integer quantityOutput;
 
-    @Column(name = "status", nullable = false)
-    private String status;
+    @Column(name = "status", nullable = false, columnDefinition = "ACTIVE")
+    private String status = "ACTIVE";
 
     public Inventory(){}
 
