@@ -1,5 +1,6 @@
 package com.system.growth_system.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -36,6 +37,7 @@ public class Inventory {
     @Column(name = "quantity_output", nullable = false)
     private Integer quantityOutput;
 
+    @JsonIgnore
     @Column(name = "status", nullable = false, columnDefinition = "ACTIVE")
     private String status = "ACTIVE";
 
