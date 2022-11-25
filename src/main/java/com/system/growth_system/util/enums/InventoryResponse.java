@@ -1,7 +1,8 @@
 package com.system.growth_system.util.enums;
 
 public enum InventoryResponse {
-    SUCCESS_SAVE_INVENTORY("Inventario Guardado!");
+    SUCCESS_SAVE_INVENTORY("Inventario Guardado!"),
+    SERIAL_NUMBER_DUPLICATE("Numero de serial duplicado");
 
     private final String value;
 

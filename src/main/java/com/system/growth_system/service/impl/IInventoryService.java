@@ -11,7 +11,7 @@ public interface IInventoryService {
 
     Optional<Inventory> findById(Long id);
 
-    String save(Inventory inventory);
+    Object save(Inventory inventory) throws Exception;
 
     String delete(Inventory inventory);
 

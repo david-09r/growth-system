@@ -4,9 +4,12 @@ import com.system.growth_system.persistence.entity.Inventory;
 import com.system.growth_system.persistence.repository.InventoryRepository;
 import com.system.growth_system.service.impl.IInventoryService;
 import com.system.growth_system.util.enums.InventoryResponse;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -29,9 +32,16 @@ public class InventoryServiceImpl implements IInventoryService {
     }
 
     @Override
-    public String save(Inventory inventory) {
-        this.inventoryRepository.save(inventory);
-        return InventoryResponse.SUCCESS_SAVE_INVENTORY.getValue();
+    public Object save(Inventory inventory) throws Exception {
+        try {
+            return this.inventoryRepository.save(inventory);
+        }
+        catch (DataIntegrityViolationException d) {
+            return InventoryResponse.SERIAL_NUMBER_DUPLICATE.getValue();
+        }
+        catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
 
     @Override

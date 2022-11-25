@@ -2,6 +2,7 @@ package com.system.growth_system.controller;
 
 import com.system.growth_system.persistence.entity.Inventory;
 import com.system.growth_system.service.InventoryServiceImpl;
+import com.system.growth_system.util.enums.InventoryResponse;
 import com.system.growth_system.util.enums.TextResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,10 +43,13 @@ public class InventoryController {
     @PostMapping()
     public ResponseEntity<Object> store(@RequestBody Inventory inventory){
         try {
-            String response = this.inventoryService.save(inventory);
+            Object response = this.inventoryService.save(inventory);
+            if (response.equals(InventoryResponse.SERIAL_NUMBER_DUPLICATE.getValue())) {
+                return ResponseHandler.generateResponse(TextResponse.SUCCESS_STATUS.getValue(), HttpStatus.OK, response);
+            }
             return ResponseHandler.generateResponse(TextResponse.SUCCESS_STATUS.getValue(), HttpStatus.CREATED, response);
         }catch (Exception e) {
-            return ResponseHandler.generateResponse(TextResponse.ERROR_STATUS.getValue(), HttpStatus.MULTI_STATUS, e.getMessage());
+            return ResponseHandler.generateResponse(TextResponse.ERROR_STATUS.getValue(), HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 }
