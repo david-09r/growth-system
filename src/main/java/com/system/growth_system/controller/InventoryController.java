@@ -52,4 +52,22 @@ public class InventoryController {
             return ResponseHandler.generateResponse(TextResponse.ERROR_STATUS.getValue(), HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Object> deleteForId(@PathVariable Long id) {
+        try {
+            String response = this.inventoryService.delete(id);
+            if (response.equals(InventoryResponse.NOT_FOUND.getValue())) {
+                return ResponseHandler.generateResponse(TextResponse.SUCCESS_STATUS.getValue(), HttpStatus.OK, response);
+            }
+            return ResponseHandler.generateResponse(TextResponse.SUCCESS_STATUS.getValue(), HttpStatus.NO_CONTENT, response);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(TextResponse.ERROR_STATUS.getValue(), HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+    }
+
+    @PostMapping(value = "/delete-multiple")
+    public ResponseEntity<Object> deleteMultipleInventories(){
+
+    }
 }

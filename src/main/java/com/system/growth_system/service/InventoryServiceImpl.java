@@ -5,12 +5,10 @@ import com.system.growth_system.persistence.repository.InventoryRepository;
 import com.system.growth_system.service.impl.IInventoryService;
 import com.system.growth_system.util.enums.InventoryResponse;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class InventoryServiceImpl implements IInventoryService {
@@ -45,7 +43,14 @@ public class InventoryServiceImpl implements IInventoryService {
     }
 
     @Override
-    public String delete(Inventory inventory) {
-        return null;
+    public String delete(Long id) throws Exception {
+        try {
+            inventoryRepository.deleteById(id);
+            return InventoryResponse.SUCCESSFULLY_REMOVED.getValue();
+        }catch (EmptyResultDataAccessException e){
+          return InventoryResponse.NOT_FOUND.getValue();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
 }

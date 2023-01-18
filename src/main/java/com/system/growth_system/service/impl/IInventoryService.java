@@ -13,6 +13,6 @@ public interface IInventoryService {
 
     Object save(Inventory inventory) throws Exception;
 
-    String delete(Inventory inventory);
+    String delete(Long id) throws Exception;
 
 }
